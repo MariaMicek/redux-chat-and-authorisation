@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { textChangedActionCreator, addMessageAsyncActionCreator, onDeleteMessageAsyncActionCreator } from '../state/messages'
+import { textChangedActionCreator, addMessageAsyncActionCreator, onDeleteMessageAsyncActionCreator, toggleFavoriteAsyncActionCreator } from '../state/messages'
 import { logOutAsyncActionCreator } from '../state/auth'
 import Messages from './Messages'
 import TextField from '@material-ui/core/TextField'
@@ -54,6 +54,7 @@ const Chat = (props) => {
 			<Messages
 				messages={props._messages}
 				delete={props._deleteMessage}
+				toggleFavorite={props._toggleFavorite}
 			/>
 		</div>
 	)
@@ -69,6 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
 	_addMessage: () => dispatch(addMessageAsyncActionCreator()),
 	_logOut: () => dispatch(logOutAsyncActionCreator()),
 	_deleteMessage: (id) => dispatch(onDeleteMessageAsyncActionCreator(id)),
+	_toggleFavorite: (id) => dispatch(toggleFavoriteAsyncActionCreator(id))
 })
 
 export default connect(

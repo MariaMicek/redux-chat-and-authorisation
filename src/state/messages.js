@@ -40,6 +40,21 @@ export const addMessageAsyncActionCreator = () => (dispatch, getState) => {
 export const onDeleteMessageAsyncActionCreator = (id) => (dispatch, getState) => {
     database.ref(`/messages/${id}`).remove()
 }
+export const toggleFavoriteAsyncActionCreator = (id) => (dispatch, getState) => {
+    const state = getState()
+    const isFav = state.messages.messages[id].isFav 
+    const userId = state.auth.user.uid
+    
+    const ref = database.ref(`/messages/${id}/isFav/${userId}`)
+    
+    console.log(isFav, ref)
+
+    if (isFav) {
+        ref.set(null)
+    }else{
+        ref.set(true)
+    }
+}
 
 const initialState = {
     messages: [],

@@ -1,4 +1,4 @@
-import { auth, googleProvider } from '../firebaseConfig'
+import { database, auth, googleProvider } from '../firebaseConfig'
 
 const SET_USER = 'auth/SET_USER'
 const LOADING = 'auth/LOADING'
@@ -18,10 +18,19 @@ export const logInAsyncActionCreator = () => (dispatch, getState) => {
 export const startListeningForUserAsyncActionCreator = () => (dispatch, getState) => {
     auth.onAuthStateChanged(
         user => {
-            dispatch(setUserActionCreator(user))
-            dispatch(loadingActionCreator(false))
+            if (user) {
+                dispatch(setUserActionCreator(user))
+                dispatch(loadingActionCreator(false))
+            } else {
+                dispatch(stopListeningToMessagesAsyncActionCreator())
+                dispatch(setUserActionCreator(user))
+                dispatch(loadingActionCreator(false))
+            }
         }
     )
+}
+const stopListeningToMessagesAsyncActionCreator = () => (dispatch, getState) => {
+    database.ref(`/messages`).off()
 }
 export const logOutAsyncActionCreator = () => (dispatch, getState) => {
     auth.signOut()

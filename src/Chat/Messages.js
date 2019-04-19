@@ -7,11 +7,13 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Delete from '@material-ui/icons/Delete'
+import Favorite from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 const Messages = (props) => {
     return (
         <List
-            style={{ 
+            style={{
                 width: '50%',
                 marginTop: '30px'
             }}
@@ -35,16 +37,24 @@ const Messages = (props) => {
                             />
                             {
                                 auth.currentUser.email === value.author.email ?
-
                                     <IconButton
                                         onClick={() => props.delete(key)}
                                     >
                                         <Delete />
                                     </IconButton>
-
                                     :
                                     null
                             }
+                            <IconButton
+                                onClick={() => props.toggleFavorite(key)}
+                            >
+                                {
+                                    value.isFav && value.isFav[auth.currentUser.uid] ?
+                                        <Favorite />
+                                        :
+                                        <FavoriteBorder />
+                                }
+                            </IconButton>
                         </ListItem>
                     )
                 )
