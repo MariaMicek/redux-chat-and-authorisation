@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import messages from './state/messages'
+import messages, { startListeningToMessagesAsyncActionCreator } from './state/messages'
 
 const rootReducer = combineReducers({
     messages
@@ -14,3 +14,5 @@ export const store = createStore(
         applyMiddleware(thunk)
     )
 )
+
+store.dispatch(startListeningToMessagesAsyncActionCreator())
