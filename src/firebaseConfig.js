@@ -1,14 +1,16 @@
 import firebase from 'firebase'
 
-const config = {
-    apiKey: "AIzaSyB24r51OUBMCk03lHWXevQharcEyKq5BUk",
-    authDomain: "first-project-marysia.firebaseapp.com",
-    databaseURL: "https://first-project-marysia.firebaseio.com",
-    projectId: "first-project-marysia",
-    storageBucket: "first-project-marysia.appspot.com",
-    messagingSenderId: "748287643590"
-}
+let config = {
+    apiKey: "AIzaSyANXtPRdlbJLIMH-7mMdMAFBp_dmsIRoCM",
+    authDomain: "exrcsies-fireb.firebaseapp.com",
+    databaseURL: "https://exrcsies-fireb.firebaseio.com",
+    projectId: "exrcsies-fireb",
+    storageBucket: "exrcsies-fireb.appspot.com",
+    messagingSenderId: "736736585356"
+};
 
-firebase.initializeApp(config)
+firebase.initializeApp(config);
 
-export const database = firebase.database()
+export const database = firebase.database();
+export const auth = firebase.auth();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();

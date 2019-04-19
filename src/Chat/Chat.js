@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { textChangedActionCreator, addMessageAsyncActionCreator} from '../state/messages'
+import { textChangedActionCreator, addMessageAsyncActionCreator, onDeleteMessageAsyncActionCreator } from '../state/messages'
+import { logOutAsyncActionCreator } from '../state/auth'
 import Messages from './Messages'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -23,7 +24,12 @@ const Chat = (props) => {
 		<div
 			style={styles.container}
 		>
-			<div>
+			<form
+				onSubmit={(event) => {
+					event.preventDefault()
+					props._addMessage()
+				}}
+			>
 				<TextField
 					label={'Enter your message'}
 					variant={'outlined'}
@@ -36,10 +42,18 @@ const Chat = (props) => {
 					onClick={props._addMessage}
 				>
 					ADD
-       		</Button>
-			</div>
+       			</Button>
+				<Button
+					style={styles.button}
+					variant={'outlined'}
+					onClick={props._logOut}
+				>
+					LOG OUT
+       			</Button>
+			</form>
 			<Messages
 				messages={props._messages}
+				delete={props._deleteMessage}
 			/>
 		</div>
 	)
@@ -53,6 +67,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 	_changeText: (event) => dispatch(textChangedActionCreator(event)),
 	_addMessage: () => dispatch(addMessageAsyncActionCreator()),
+	_logOut: () => dispatch(logOutAsyncActionCreator()),
+	_deleteMessage: (id) => dispatch(onDeleteMessageAsyncActionCreator(id)),
 })
 
 export default connect(
